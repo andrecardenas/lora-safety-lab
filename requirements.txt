@@ -1,0 +1,5 @@
+transformers==4.46.3
+peft==0.13.2
+accelerate==1.1.1
+mlflow-skinny==2.18.0
+pytest==8.3.4

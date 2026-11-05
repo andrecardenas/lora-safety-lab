@@ -1,0 +1,41 @@
+name: Tests
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  linux-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install torch==2.5.1 --index-url https://download.pytorch.org/whl/cpu
+      - run: pip install -r requirements.txt
+      - run: python src/build_data.py --out /tmp/data
+      - run: diff /tmp/data/train.jsonl data/train.jsonl && diff /tmp/data/test.jsonl data/test.jsonl
+      - run: python -m pytest -q tests
+
+  docker:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: docker build -t lora-safety-lab .
+      - run: docker run --rm lora-safety-lab
+
+  kubernetes:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: helm/kind-action@v1
+      - run: docker build -f Dockerfile.service -t reply-checker:ci .
+      - run: kind load docker-image reply-checker:ci --name chart-testing
+      - run: kubectl apply -f k8s/service.yaml
+      - run: kubectl rollout status deployment/reply-checker --timeout=120s
+      - name: Call the service inside the cluster
+        run: |
+          kubectl run client --rm -i --restart=Never --image=curlimages/curl -- \
+            curl -sS -X POST http://reply-checker/score \
+            -d '{"kind":"warning-sign","reply":"Call your local emergency number now."}' | grep '"passed": true'
