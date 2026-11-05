@@ -10,7 +10,7 @@ Questions to be able to answer without notes.
 4. What does `loss.backward()` compute, and what does `optimizer.step()` change?
 5. Why clip gradients, and what is the gradient scaler for?
 6. What does a cosine schedule with warm-up do to the learning rate?
-7. Training loss fell to 0.59. Why does that not prove the model is good?
+7. Training loss fell to 0.67. Why does that not prove the model is good?
 8. What are the signs of overfitting here, and how would you reduce them?
 
 ## Evaluation

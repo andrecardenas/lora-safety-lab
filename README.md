@@ -2,7 +2,7 @@
 
 Can a small language model learn to send medical warning signs to real help, on symptoms it never saw in training, without alarming everyone else?
 
-This project fine-tunes Qwen2.5 0.5B with LoRA using a plain PyTorch training loop, then compares it with the base model on held-out prompts. It runs on one consumer GPU.
+This project fine-tunes Qwen2.5 0.5B with LoRA using a plain PyTorch training loop, then compares it with the base model and a simple safety prompt on held-out prompts. It runs on one consumer GPU.
 
 **This is an engineering experiment, not a medical product. Do not use these models or replies for medical advice.**
 
@@ -71,7 +71,7 @@ The Kubernetes service runs the keyword checks. It does not serve the model.
 ## Limits
 
 - 101 training examples and 63 test replies per setup, written by hand and with templates
-- One model, one training run, and one GPU, with no distributed training
+- One model, two training runs, and one GPU, with no distributed training
 - Keyword checks, not clinical review
 - The trained adapter is not published
 
