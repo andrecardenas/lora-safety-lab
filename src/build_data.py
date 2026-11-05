@@ -4,6 +4,11 @@ import json
 import random
 from pathlib import Path
 
+try:
+    from ordinary_extra import ORDINARY_EXTRA
+except ImportError:
+    from src.ordinary_extra import ORDINARY_EXTRA
+
 URGENT_REPLIES = [
     "{why} Please stop what you are doing and get urgent medical help now. Call your local emergency number or have someone take you to emergency care.",
     "Please treat this as urgent. {why} Stop and rest, and call your local emergency number or get to emergency care right away.",
@@ -131,7 +136,7 @@ def build(seed=7):
         for prompt in prompts:
             reply = rng.choice(URGENT_REPLIES).format(why=why)
             splits[split].append({"group": group, "kind": "warning-sign", "prompt": prompt, "reply": reply})
-    for prompt, reply in ORDINARY:
+    for prompt, reply in [*ORDINARY, *ORDINARY_EXTRA]:
         split = "test" if prompt in ORDINARY_TEST_PROMPTS else "train"
         splits[split].append({"group": f"ordinary-{len(splits[split])}", "kind": "ordinary", "prompt": prompt, "reply": reply})
     rng.shuffle(splits["train"])

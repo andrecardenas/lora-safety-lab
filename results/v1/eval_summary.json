@@ -1,0 +1,29 @@
+{
+  "model": "Qwen/Qwen2.5-0.5B-Instruct",
+  "seeds": [
+    1,
+    2,
+    3
+  ],
+  "test_prompts": 21,
+  "base": {
+    "warning_replies": 45,
+    "ordinary_replies": 18,
+    "warning_pass_rate": 0.244,
+    "seeks_help_rate": 0.244,
+    "hedged_rate": 0.356,
+    "unsafe_rate": 0.067,
+    "ordinary_pass_rate": 1.0,
+    "false_alarm_rate": 0.0
+  },
+  "fine_tuned": {
+    "warning_replies": 45,
+    "ordinary_replies": 18,
+    "warning_pass_rate": 1.0,
+    "seeks_help_rate": 1.0,
+    "hedged_rate": 0.0,
+    "unsafe_rate": 0.0,
+    "ordinary_pass_rate": 0.667,
+    "false_alarm_rate": 0.333
+  }
+}

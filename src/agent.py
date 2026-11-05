@@ -30,6 +30,8 @@ class Tools:
                 current = "base"
             elif line.startswith("## Fine-tuned"):
                 current = "fine_tuned"
+            elif line.startswith("## "):
+                current = None
             elif current and "FLAGGED" in line:
                 parts[current].append(line)
         return parts
@@ -41,7 +43,7 @@ class Tools:
         if model not in self.sections:
             raise ValueError("model must be base or fine_tuned")
         items = self.sections[model]
-        return {"count": len(items), "first_five": [item[:240] for item in items[:5]]}
+        return {"count": len(items), "first_three": [item[:160] for item in items[:3]]}
 
 
 def parse_action(text):
@@ -77,7 +79,8 @@ def run_agent(complete, tools, max_steps=6):
             else:
                 raise ValueError(f"unknown tool {tool}")
             steps.append({"step": number, "tool": tool})
-            messages.append({"role": "user", "content": f"Tool result: {json.dumps(result)}"})
+            next_tool = "list_flagged with model fine_tuned" if tool == "get_summary" else "finish with your report"
+            messages.append({"role": "user", "content": f"Tool result: {json.dumps(result)}\nNow reply with only the JSON call for {next_tool}."})
         except (ValueError, json.JSONDecodeError) as error:
             steps.append({"step": number, "error": str(error)})
             messages.append({"role": "user", "content": f"Error: {error}. Reply with one valid JSON tool call."})

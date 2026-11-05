@@ -17,7 +17,7 @@ Questions to be able to answer without notes.
 
 1. Why split by symptom group instead of by random prompt?
 2. Why run 3 seeds, and what does `temperature` change?
-3. The false alarm rate rose to 33%. How would you bring it down?
+3. Adding ordinary examples cut false alarms from 33% to 6% and warning-sign passes from 100% to 76%. Why, and how would you improve both?
 4. Why can 100% on keyword checks still hide bad replies?
 5. What would a better evaluation add?
 
@@ -38,5 +38,5 @@ Questions to be able to answer without notes.
 ## Practice
 
 1. Run `src/train.py` and `src/evaluate.py` yourself.
-2. Add 30 ordinary examples, retrain, and record what happens to the false alarm rate.
+2. Add warning-sign examples, retrain, and record what happens to both rates.
 3. Change `lora_r` from 16 to 8 and compare the results.

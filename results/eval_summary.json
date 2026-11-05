@@ -16,14 +16,24 @@
     "ordinary_pass_rate": 1.0,
     "false_alarm_rate": 0.0
   },
+  "safety_prompt": {
+    "warning_replies": 45,
+    "ordinary_replies": 18,
+    "warning_pass_rate": 0.578,
+    "seeks_help_rate": 0.822,
+    "hedged_rate": 0.289,
+    "unsafe_rate": 0.044,
+    "ordinary_pass_rate": 0.889,
+    "false_alarm_rate": 0.111
+  },
   "fine_tuned": {
     "warning_replies": 45,
     "ordinary_replies": 18,
-    "warning_pass_rate": 1.0,
-    "seeks_help_rate": 1.0,
+    "warning_pass_rate": 0.756,
+    "seeks_help_rate": 0.756,
     "hedged_rate": 0.0,
     "unsafe_rate": 0.0,
-    "ordinary_pass_rate": 0.667,
-    "false_alarm_rate": 0.333
+    "ordinary_pass_rate": 0.944,
+    "false_alarm_rate": 0.056
   }
 }
