@@ -34,8 +34,9 @@ jobs:
       - run: kind load docker-image reply-checker:ci --name chart-testing
       - run: kubectl apply -f k8s/service.yaml
       - run: kubectl rollout status deployment/reply-checker --timeout=120s
-      - name: Call the service inside the cluster
+      - name: Call the service in the cluster
         run: |
-          kubectl run client --rm -i --restart=Never --image=curlimages/curl -- \
-            curl -sS -X POST http://reply-checker/score \
+          kubectl port-forward service/reply-checker 18080:80 &
+          sleep 3
+          curl -sS --fail -X POST http://127.0.0.1:18080/score \
             -d '{"kind":"warning-sign","reply":"Call your local emergency number now."}' | grep '"passed": true'

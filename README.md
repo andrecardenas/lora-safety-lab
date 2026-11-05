@@ -58,7 +58,7 @@ GitHub Actions runs three jobs on Linux:
 
 - The unit tests, plus a check that the dataset rebuilds exactly
 - The same tests inside a Docker image
-- A small reply-checking service deployed to a temporary Kubernetes cluster and called from inside it
+- A small reply-checking service deployed to a temporary Kubernetes cluster and called through a port forward
 
 The Kubernetes service runs the keyword checks. It does not serve the model.
 
